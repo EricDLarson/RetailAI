@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+</head>
+  <body>
+
+    Product ID:<br/>
+    <input type="text" value="310831" size="8" maxlength="6" id="itemIdField">
+    <button onclick="clickButton()">Submit</button><br/><br/>
+
+<div id="div1"> </div>
+<script>
+  function displayRecs(recs) {
+
+    var divBody = "";
+    for (var i in recs['results']) {
+      divBody += "<div style=\"width: 160px\"><a href=\"" + recs['results'][i]['itemMetadata']['catalogItem']['productMetadata']['canonicalProductUri'] + "\">";
+      divBody += "<img style=\"  border: 3px solid #fff; max-width: 150px; max-height: 150px\" src=" + recs['results'][i]['itemMetadata']['catalogItem']['productMetadata']['images'][0]['uri'] + "><br/>";
+      divBody += recs['results'][i]['itemMetadata']['catalogItem']['title'];
+      divBody += "</a></div>";
+    }
+    document.getElementById("div1").innerHTML = divBody;
+  }
+
+  function clickButton() {
+    var s = document.createElement("script");
+    s.src = "https://<your-cloud-function-url>.cloudfunctions.net/recommend-1?visitorid=blah&productid=" + document.getElementById("itemIdField").value
+    document.body.appendChild(s);
+}
+
+
+</script>
+<script id="recScript" src="https://<your-cloud-function-url>.cloudfunctions.net/recommend-1?visitorid=blah&productid=310831"></script>
+
+
+</body>
+</html>
