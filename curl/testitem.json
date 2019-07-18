@@ -1,0 +1,21 @@
+{
+  "id": "1234",
+  "category_hierarchies": [ { "categories": [ "athletic wear", "shoes" ]  } ],
+  "title": "ABC sneakers",
+  "description": "Sneakers for the rest of us",
+  "language_code": "en",
+  "tags": [ ],
+  "product_metadata": {
+    "exact_price": {
+      "display_price": 99.98,
+      "original_price": 111.99
+    },
+    "costs": {
+      "manufacturing": 35.990002,
+      "other": 20
+    },
+    "currency_code": "USD",
+    "canonical_product_uri": "https://www.example.com/products/1234",
+    "images": [ ]
+   }
+}

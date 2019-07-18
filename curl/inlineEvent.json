@@ -1,0 +1,9 @@
+{
+  "inputConfig": {
+    "userEventInlineSource" : {
+      "userEvents": [
+        {"eventType": "detail-page-view", "userInfo": {"visitorId": "GO8YdFzqZ2bnE", "userId": "13745"}, "eventDetail": {"uri": "https://www.example.com/62705/jan-1-happy-new-year-holidays-years/"}, "productEventDetail": {"productDetails": [{"id": "62705", "displayPrice": 4.95, "availableQuantity": 1, "currencyCode": "USD"}]}, "eventTime": "2019-01-01T11:33:52.139174Z"}
+      ]
+    }
+  }
+}

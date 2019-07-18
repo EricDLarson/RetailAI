@@ -1,0 +1,10 @@
+{
+  "errorsConfig": {
+    "gcsPrefix": "gs://recommendations-sandbox-test/errors/"
+  },
+ "inputConfig": {
+    "gcsSource": {
+      "inputUris": ["gs://recommendations-sandbox-test/1-user_event.txt"]
+    }
+  }
+}
