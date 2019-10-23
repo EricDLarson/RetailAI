@@ -1,8 +1,8 @@
-## RecommendationsAI
-
-#### All samples provided as-is without warranty
+## Recommendations AI
 
 Samples and Examples for Google Recommendations AI
+
+#### All samples provided as-is without warranty
 
 Please refer to the official documentation for more examples and up-to-date API specifics:
 
