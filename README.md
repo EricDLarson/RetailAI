@@ -13,4 +13,5 @@ Please refer to the official documentation for more examples and up-to-date API 
 ### Directories:
 - [GCF](/GCF/) - Sample AJAX implementation for client-side predictions using Google Cloud Functions
 - [curl](/curl/) - Examples for doing common tasks with curl commands (REST API)
+- [php](/php/) - Example predict request in php
 - [python](/python/) - Utility scripts in python (using [discovery API](https://developers.google.com/discovery/))
