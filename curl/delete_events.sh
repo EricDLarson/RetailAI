@@ -8,7 +8,7 @@
 # force:true will cause an actual delete, force:false (the default) will return only return a list of events that match
 
 export GOOGLE_APPLICATION_CREDENTIALS=<yourkeyfile>
-export PROJECT=<yourprojectnumber>
+export PROJECT_NUM=<yourprojectnumber>
 
 curl -X POST -H "Authorization: Bearer "$(gcloud auth application-default print-access-token)"" \
       -H "Content-Type: application/json; charset=utf-8" \
