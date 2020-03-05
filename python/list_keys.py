@@ -35,12 +35,6 @@ service = build('recommendationengine',
                 'https://recommendationengine.googleapis.com/'
                 '$discovery/rest?version=v1beta1&key=' + args.apikey)
 
-json_body = {
-    "predictionApiKeyRegistration": {
-        'apiKey': args.apikey
-    }
-}
-
 request = service.projects().locations().catalogs().eventStores()\
     .predictionApiKeyRegistrations().list(
         parent='projects/'+ args.project +
