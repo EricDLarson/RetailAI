@@ -5,7 +5,6 @@
 
 import argparse
 import os
-from pprint import pprint
 from apiclient.discovery import build
 
 parser = argparse.ArgumentParser()
