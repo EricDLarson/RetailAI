@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-"""Import events from a GCS bucket
-https://cloud.google.com/recommendations-ai/docs/reference/rest/v1beta1/projects.locations.catalogs.eventStores.userEvents/import
+"""Import catalog from a GCS bucket
+https://cloud.google.com/recommendations-ai/docs/reference/rest/v1beta1/projects.locations.catalogs.catalogItems/import
 
 You will need to customize the json_body below for your GCS bucket paths
 
@@ -60,7 +60,7 @@ json_body = {
 }
 
 import_request = service.projects().locations().catalogs().eventStores()\
-    .userEvents().import_(
+    .catalogItems().import_(
         parent='projects/'+ args.project +
         '/locations/global/catalogs/default_catalog'+
         '/eventStores/default_event_store',
