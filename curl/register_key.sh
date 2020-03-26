@@ -4,7 +4,7 @@
 # usage: ./register_key.sh <key>
 
 export GOOGLE_APPLICATION_CREDENTIALS=<yourkeyfile>
-export PROJECT=<yourprojectnumber>
+export PROJECTID=<yourprojectnumber>
 
 curl -X POST \
      -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" \
