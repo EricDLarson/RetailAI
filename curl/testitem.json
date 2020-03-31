@@ -18,7 +18,7 @@
     "canonical_product_uri": "https://www.example.com/products/1234",
     "images": [ 
        {
-         'uri': 'https://www.example.com/images/image1234.jpg'
+         "uri": "https://www.example.com/images/image1234.jpg"
        }
      ]
    }
