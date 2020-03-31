@@ -16,6 +16,10 @@
     },
     "currency_code": "USD",
     "canonical_product_uri": "https://www.example.com/products/1234",
-    "images": [ ]
+    "images": [ 
+       {
+         'uri': 'https://www.example.com/images/image1234.jpg'
+       }
+     ]
    }
 }
