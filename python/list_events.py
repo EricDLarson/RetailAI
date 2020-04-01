@@ -41,7 +41,7 @@ parser.add_argument(
     '--event_type',
     required=False,
     type=str,
-    help='deteail-page-view, add-to-cart, purchase-complete, etc')
+    help='detail-page-view, add-to-cart, purchase-complete, etc')
 parser.add_argument(
     '--events_missing_catalog_items',
     required=False,
