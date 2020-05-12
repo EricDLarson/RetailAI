@@ -35,7 +35,7 @@ def recommend(request):
     page_size = 4
 
   payload = {
-      'filter': 'filterOutOfStockItems tag="safe"',
+      'filter': 'filterOutOfStockItems',
       'pageSize': page_size,
       'params': {
           'returnCatalogItem': True
