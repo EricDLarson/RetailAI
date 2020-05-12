@@ -18,11 +18,10 @@ parser.add_argument('itemids',
 args = parser.parse_args()
 
 data = {
-    'filter': 'tag="safe"',
     'dryRun': False,
     'pageSize': 4,
     'params': {
-        'returnCatalogItem': False,
+        'returnCatalogItem': True,
         'returnItemScore': True
     },
     'userEvent': {
