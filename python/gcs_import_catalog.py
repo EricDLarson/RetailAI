@@ -28,11 +28,6 @@ parser.add_argument(
     required=True,
     type=str,
     help='Cloud project #')
-parser.add_argument(
-    '--infile',
-    required=False,
-    type=str,
-    help='Input File, use stdinn if omitted')
 
 args = parser.parse_args()
 
