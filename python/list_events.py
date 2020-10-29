@@ -10,6 +10,7 @@ import argparse
 import json
 from apiclient.discovery import build
 from google.oauth2 import service_account
+from google.cloud import bigquery
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -47,6 +48,16 @@ parser.add_argument(
     required=False,
     action='store_true',
     help='Return only unjoined events')
+parser.add_argument(
+    '--bq_table',
+    required=False,
+    type=str,
+    help='Stream events to a BigQuery table')
+parser.add_argument(
+  '-v', '--verbose',
+  required=False,
+  action='store_true',
+  help='Verbose output')
 
 args = parser.parse_args()
 
@@ -61,7 +72,6 @@ if args.event_type is not None:
 if args.events_missing_catalog_items:
   filter_string = (filter_string + ' eventsMissingCatalogItems')
 
-
 SCOPES = ['https://www.googleapis.com/auth/cloud-platform']
 SERVICE_ACCOUNT_FILE = args.service_account
 credentials = service_account.Credentials.from_service_account_file(
@@ -70,6 +80,9 @@ credentials = service_account.Credentials.from_service_account_file(
 # Can also set GOOGLE_APPLICATION_CREDENTIALS environment variable,
 # But the above creditals code may be somewhat more "correct"
 # os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = args.service_account
+
+if args.bq_table:
+  bq = bigquery.Client(credentials=credentials)
 
 service = build('recommendationengine',
                 'v1beta1',
@@ -82,6 +95,8 @@ service = build('recommendationengine',
 next_page = ''
 while next_page is not None:
 
+  if args.verbose:
+    print('Getting Recommendations Events')
   request = service.projects().locations().catalogs().eventStores()\
       .userEvents().list(
           parent='projects/'+ args.project +
@@ -98,13 +113,34 @@ while next_page is not None:
     next_page = None
 
   try:
+    bq_list = []
     for event in response['userEvents']:
       try:  # Add currencyCode since it's not returned currently (b/130748472)
         for i in range(len(event['productEventDetail']['productDetails'])):
           event['productEventDetail']['productDetails'][i]['currencyCode'] = (
               'USD')
-      except KeyError:
+      except KeyError as err:
         pass
-      print(json.dumps(event))
-  except KeyError:
+
+      if args.bq_table:
+        # Remove custom attributes
+        if 'productEventDetail' in event and 'productDetails' in event['productEventDetail']:
+          for item in event['productEventDetail']['productDetails']:
+            del(item['itemAttributes'])
+
+        bq_list.append(event)
+      else:
+        print(json.dumps(event))
+
+    if args.bq_table:
+      if args.verbose:
+        print ('Writing to BigQuery')
+      errors = bq.insert_rows_json(args.bq_table, bq_list)
+      if errors:
+        print(json.dumps(errors))
+        exit()
+      else:
+        if args.verbose:
+          print('Wrote ' + str(len(bq_list)) + ' events to BiqQuery')
+  except KeyError as err:
     pass
