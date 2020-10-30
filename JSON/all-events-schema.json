@@ -15,11 +15,16 @@
 	    "name": "uri",
 	    "type": "STRING",
 	    "mode": "NULLABLE"
+	},
+	{
+            "name": "experimentIds",
+            "mode": "REPEATED",
+            "type": "STRING"
 	}
     ],
-    "mode": "NULLABLE",
-    "name": "eventDetail",
-    "type": "RECORD"
+      "mode": "NULLABLE",
+      "name": "eventDetail",
+      "type": "RECORD"
   },
   {
     "fields": [
@@ -32,6 +37,11 @@
         "mode": "REQUIRED",
         "name": "visitorId",
         "type": "STRING"
+      },
+      {
+        "mode": "NULLABLE",
+        "name": "directUserRequest",
+        "type": "BOOLEAN"
       }
     ],
     "mode": "REQUIRED",
