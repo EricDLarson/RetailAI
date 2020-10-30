@@ -4,6 +4,10 @@
 Returns one json response per line
 This is useful for importing into BigQuery or other offline analysis:
 https://cloud.google.com/bigquery/docs/loading-data-cloud-storage-json
+
+Can also import directly to BigQuery (create a table with all-events-schema.json)
+Using GCS import is usualy faster than inline, 
+which only streams up to 5000 events per call
 """
 
 import argparse
@@ -11,6 +15,7 @@ import json
 from apiclient.discovery import build
 from google.oauth2 import service_account
 from google.cloud import bigquery
+from google.cloud import storage
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
@@ -54,6 +59,11 @@ parser.add_argument(
     type=str,
     help='Stream events to a BigQuery table')
 parser.add_argument(
+    '--gcs_bucket',
+    required=False,
+    type=str,
+    help='temp bucket for writing event files')
+parser.add_argument(
   '-v', '--verbose',
   required=False,
   action='store_true',
@@ -84,6 +94,11 @@ credentials = service_account.Credentials.from_service_account_file(
 if args.bq_table:
   bq = bigquery.Client(credentials=credentials)
 
+if args.gcs_bucket:
+  gcs = storage.Client(credentials=credentials)
+  gcs_data = ''
+  file_num = 1;
+  
 service = build('recommendationengine',
                 'v1beta1',
                 discoveryServiceUrl=
@@ -121,26 +136,70 @@ while next_page is not None:
               'USD')
       except KeyError as err:
         pass
-
+      
       if args.bq_table:
-        # Remove custom attributes
-        if 'productEventDetail' in event and 'productDetails' in event['productEventDetail']:
-          for item in event['productEventDetail']['productDetails']:
-            del(item['itemAttributes'])
+        # Remove some attributes when importing into BQ
+        if 'productEventDetail' in event:
+          if 'productDetails' in event['productEventDetail']:
+            for item in event['productEventDetail']['productDetails']:
+              if 'itemAttributes' in item:
+                del(item['itemAttributes'])
+          if 'purchaseTransaction' in event['productEventDetail']:
+            if 'costs' in event['productEventDetail']['purchaseTransaction']:
+              del(event['productEventDetail']['purchaseTransaction']['costs'])
+            if 'taxes' in event['productEventDetail']['purchaseTransaction']:
+              del(event['productEventDetail']['purchaseTransaction']['taxes'])
 
-        bq_list.append(event)
+        if args.gcs_bucket:
+          gcs_data += json.dumps(event) + "\n"
+        else:
+          bq_list.append(event)
+          
       else:
         print(json.dumps(event))
 
+    # Upload to BQ
     if args.bq_table:
-      if args.verbose:
-        print ('Writing to BigQuery')
-      errors = bq.insert_rows_json(args.bq_table, bq_list)
-      if errors:
-        print(json.dumps(errors))
-        exit()
+      # Use GCS (faster)
+      if args.gcs_bucket:
+        if (len(gcs_data) > 500000000 or next_page is None):
+          if args.verbose:
+            print('Writing to GCS')
+            print('Data Size: ' + str(len(gcs_data)))
+          bucket = gcs.bucket(args.gcs_bucket)
+          blob = bucket.blob('events-' + str(file_num) + '.txt')
+          gcs_file = blob.upload_from_string(gcs_data)
+
+          if args.verbose:
+            print ('Doing BigQuery Import')
+          job_config = bigquery.LoadJobConfig(
+            source_format=bigquery.SourceFormat.NEWLINE_DELIMITED_JSON,
+          )
+          uri = 'gs://' + args.gcs_bucket + '/' + 'events-' + str(file_num) + '.txt'
+
+          load_job = bq.load_table_from_uri(
+            uri,
+            args.bq_table,
+            location="US",
+            job_config=job_config
+          )
+
+          gcs_data = ''
+          file_num += 1
+
+      # inline import (slow)
       else:
         if args.verbose:
-          print('Wrote ' + str(len(bq_list)) + ' events to BiqQuery')
+          print ('Writing to BigQuery')
+        errors = bq.insert_rows_json(args.bq_table, bq_list)
+        if errors:
+          print(json.dumps(errors))
+          exit()
+        else:
+          if args.verbose:
+            print('Wrote ' + str(len(bq_list)) + ' events to BiqQuery')
+        bq_list = []
+              
   except KeyError as err:
+    print(err)
     pass
