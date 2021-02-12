@@ -139,6 +139,8 @@ while next_page is not None:
       
       if args.bq_table:
         # Remove some attributes when importing into BQ
+        del(event['eventDetail'])
+
         if 'productEventDetail' in event:
           if 'productDetails' in event['productEventDetail']:
             for item in event['productEventDetail']['productDetails']:
