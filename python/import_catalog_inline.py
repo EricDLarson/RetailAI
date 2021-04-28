@@ -40,8 +40,10 @@ products = {
     ]
 }
   
-inputConfig = {"product_inline_source": products}
-parent = 'projects/' + PROJECT_NUM + '/locations/global/catalogs/default_catalog/branches/0'
+request = {
+  "parent": 'projects/' + PROJECT_NUM + '/locations/global/catalogs/default_catalog/branches/0',
+  "input_config": {"product_inline_source": products}
+}
 
-response = client.import_products(parent,inputConfig)
+response = client.import_products(request)
 
