@@ -1,0 +1,1 @@
+all-events-schema.json - BigQuery Schema for User Events
