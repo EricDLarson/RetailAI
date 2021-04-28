@@ -46,7 +46,7 @@ user_events = {
       },
       "product_details": [{
         "product": {
-          "id": "user12345"
+          "id": "12345"
         }
       }]
     },
@@ -59,7 +59,7 @@ user_events = {
       },
       "product_details": [{
         "product": {
-          "id": "user12345"
+          "id": "12345"
         },
         "quantity": quantity
       }]
@@ -73,7 +73,7 @@ user_events = {
       },
       "product_details": [{
         "product": {
-          "id": "user12345"
+          "id": "12345"
         },
         "quantity": quantity
       }],
