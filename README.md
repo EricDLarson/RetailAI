@@ -1,17 +1,18 @@
 ## Recommendations AI
 
-Samples and Examples for Google Recommendations AI
+Samples and Examples for Google Recommendations AI (Now the Retail API)
 
 #### All samples provided as-is without warranty
 
 Please refer to the official documentation for more examples and up-to-date API specifics:
 
-* [Google Recommendations AI Documentation](https://cloud.google.com/recommendations-ai/docs/)
-* [Google Recommendations AI REST API Reference](https://cloud.google.com/recommendations-ai/docs/reference/rest/)
+* [Google Recommendations AI Retail API Documentation](https://cloud.google.com/retail/recommendations-ai/docs)
+* [Google Retail API Reference](https://cloud.google.com/retail/docs/reference/rest)
 
 ***
 ### Directories:
 - [GCF](/GCF/) - Sample AJAX implementation for client-side predictions using Google Cloud Functions
+- [beta](/beta/) - Old examples using the old, beta Recommendations AI API
 - [curl](/curl/) - Examples for doing common tasks with curl commands (REST API)
 - [php](/php/) - Example predict request in php
 - [python](/python/) - Utility scripts in python (using [discovery API](https://developers.google.com/discovery/))
