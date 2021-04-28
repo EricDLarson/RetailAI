@@ -44,7 +44,9 @@ request = {
     '/locations/global/catalogs/default_catalog/placements/home_page',
   
   "user_event": user_event,
-  
+
+  "filter": "filterOutOfStockItems",
+
   "params": {
     "returnProduct": True,
     "returnScore": True
