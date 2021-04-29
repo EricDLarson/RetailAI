@@ -1,12 +1,10 @@
 """ Google Cloud Function to return JSON or HTML from predict response
-
 This sample uses the Retail API with client libraries
 
 This can be used for doing AJAX/client side calls to get prediction results
 and render in a div.
 
 Configure the GCF to use a service account which has Retail Editor Role
-
 """
 
 import google.auth
@@ -15,7 +13,7 @@ import json
 from google.cloud import retail
 from google.oauth2 import service_account
 
-PROJECT_NUMBER='718209125704'
+PROJECT_NUMBER='<your project #>'
 
 credentials, project = google.auth.default(
     scopes=[
