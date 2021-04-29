@@ -15,9 +15,9 @@
 
     var divBody = "";
     for (var i in recs['results']) {
-      divBody += "<div style=\"width: 160px\"><a href=\"" + recs['results'][i]['itemMetadata']['catalogItem']['productMetadata']['canonicalProductUri'] + "\">";
-      divBody += "<img style=\"  border: 3px solid #fff; max-width: 150px; max-height: 150px\" src=" + recs['results'][i]['itemMetadata']['catalogItem']['productMetadata']['images'][0]['uri'] + "><br/>";
-      divBody += recs['results'][i]['itemMetadata']['catalogItem']['title'];
+      divBody += "<div style=\"width: 160px\"><a href=\"" + recs[i]['uri'] + "\">";
+      divBody += "<img style=\"  border: 3px solid #fff; max-width: 150px; max-height: 150px\" src=" + recs[i]['img'] + "><br/>";
+      divBody += recs[i]['title'];
       divBody += "</a></div>";
     }
     document.getElementById("div1").innerHTML = divBody;
