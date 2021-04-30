@@ -16,4 +16,4 @@ Please refer to the official documentation for more examples and up-to-date API 
 - [beta](/beta/) - Old examples using the old, beta Recommendations AI API
 - [curl](/curl/) - Examples for doing common tasks with curl commands (REST API)
 - [php](/php/) - Example predict request in php
-- [python](/python/) - Utility scripts in python (using [discovery API](https://developers.google.com/discovery/))
+- [python](/python/) - Python examples using retail API client libraries
