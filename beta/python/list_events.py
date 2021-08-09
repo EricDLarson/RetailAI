@@ -139,8 +139,13 @@ while next_page is not None:
       
       if args.bq_table:
         # Remove some attributes when importing into BQ
-        del(event['eventDetail'])
 
+        if 'eventDetail' in event:
+          if 'eventAttributes' in event['eventDetail']:
+            if 'categoricalFeatures' in event['eventDetail']['eventAttributes']:
+              if 'ecommerce.actionField.affiliation' in event['eventDetail']['eventAttributes']['categoricalFeatures']:
+                del(event['eventDetail']['eventAttributes']['categoricalFeatures']['ecommerce.actionField.affiliation'])
+            
         if 'productEventDetail' in event:
           if 'productDetails' in event['productEventDetail']:
             for item in event['productEventDetail']['productDetails']:
@@ -151,6 +156,7 @@ while next_page is not None:
               del(event['productEventDetail']['purchaseTransaction']['costs'])
             if 'taxes' in event['productEventDetail']['purchaseTransaction']:
               del(event['productEventDetail']['purchaseTransaction']['taxes'])
+              
 
         if args.gcs_bucket:
           gcs_data += json.dumps(event) + "\n"

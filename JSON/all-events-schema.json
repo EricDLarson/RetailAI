@@ -1,32 +1,82 @@
 [
-  {
-    "name": "eventTime",
-    "type": "STRING",
-    "mode": "REQUIRED"
-  },
-  {
-    "fields": [
-	{
-            "mode": "NULLABLE",
-            "name": "recommendationToken",
-            "type": "STRING"
-	},
-	{
-	    "name": "uri",
-	    "type": "STRING",
-	    "mode": "NULLABLE"
-	},
-	{
-            "name": "experimentIds",
-            "mode": "REPEATED",
-            "type": "STRING"
-	}
-    ],
-      "mode": "NULLABLE",
-      "name": "eventDetail",
-      "type": "RECORD"
-  },
-  {
+    {
+        "name": "eventTime",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED"
+    },
+    {
+        "fields" : [
+            {
+                "fields" : [
+                    {
+                        "fields" : [
+                            {
+                                "mode" : "NULLABLE",
+                                "fields" : [
+                                    {
+                                        "mode" : "REPEATED",
+                                        "name" : "value",
+                                        "type" : "STRING"
+                                    }
+                                ],
+                                "name" : "placement_id",
+                                "type" : "RECORD"
+                            },
+                            {
+                                "mode" : "NULLABLE",
+                                "fields" : [
+                                    {
+                                        "mode" : "REPEATED",
+                                    "name" : "value",
+                                    "type" : "STRING"
+                                 }
+                              ],
+                              "type" : "RECORD",
+                              "name" : "context_event_type"
+                           },
+                           {
+                              "name" : "context_item_ids",
+                              "fields" : [
+                                 {
+                                    "type" : "INTEGER",
+                                    "name" : "value",
+                                    "mode" : "REPEATED"
+                                 }
+                              ],
+                              "type" : "RECORD",
+                              "mode" : "NULLABLE"
+                           }
+                        ],
+                        "name" : "categoricalFeatures",
+                        "type" : "RECORD",
+                        "mode" : "NULLABLE"
+                    }
+                ],
+                "name" : "eventAttributes",
+                "type" : "RECORD",
+                "mode" : "NULLABLE"
+            },
+            {         
+                "mode": "NULLABLE",
+                "name": "recommendationToken",
+                "type": "STRING"
+	          },
+	          {
+	              "name": "uri",
+	              "type": "STRING",
+	              "mode": "NULLABLE"
+	          },
+	          {
+                "name": "experimentIds",
+                "mode": "REPEATED",
+                "type": "STRING"
+	          }
+        ],
+        "mode": "NULLABLE",
+        "name": "eventDetail",
+        "type": "RECORD"
+    },
+    {
     "fields": [
       {
         "mode": "NULLABLE",
