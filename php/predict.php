@@ -32,8 +32,15 @@ $userEvent = new UserEvent([
   ]
 ]);
 
+$pb_true = new Google\Protobuf\Value();
+$pb_true->setBoolValue(true);
+
 try {
-  $predictions = $predictionClient->predict($placement, $userEvent);
+  $predictions = $predictionClient->predict($placement, $userEvent, [
+    'params' => ['returnProduct' => $pb_true],
+    'filter' => 'filterOutOfStockItems'
+    ]
+  );
 } finally {
   $predictionClient->close();
 }
@@ -45,6 +52,10 @@ print($results->count() . " Item Id's Returned:");
 $iterator = $results->getIterator();
 while($iterator->valid()) {
   print($iterator->current()->getId() . "\n");
+  
+  // With returnProduct=true we can get all the product data
+  print_r(json_decode($iterator->current()->serializeToJsonString()));
+  
   $iterator->next();
 }
 
