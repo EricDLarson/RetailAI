@@ -60,7 +60,7 @@ def recommend(request):
 
     "page_size": pageSize,
 
-    "filter": 'filterOutOfStockItems tag="safe"',
+    "filter": 'filterOutOfStockItems',
 
     "params": {
       "returnProduct": True,
