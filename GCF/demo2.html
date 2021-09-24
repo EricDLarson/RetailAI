@@ -1,0 +1,13 @@
+<!-- Simple Example to load recommendations on page load directly into a div -->
+<script>
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "https://<your-cloud-function-url>.cloudfunctions.net/recommend-1?html=1&visitorid=blah&productid=56892&placement=similar_items", true);
+  xhr.onload = function () {
+    document.getElementById("recs").innerHTML = xhr.responseText;
+  };
+  xhr.send();
+</script>
+
+<div id="recs">
+
+</div>
