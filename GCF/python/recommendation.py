@@ -98,4 +98,9 @@ def recommend(request):
   else:
     result = 'displayRecs(' + json.dumps(items) + ')'
 
-  return (result)
+  # Set as needed for your CORS policy:
+  headers = {
+    'Access-Control-Allow-Origin': '*'
+  }
+
+  return (result,200,headers)
