@@ -39,6 +39,11 @@ def recommend(request):
     pageSize = request.args.get('num')
   else:
     pageSize = 4
+    
+  if request.args and 'placement' in request.args:
+    placement = request.args.get('placement')
+  else:
+    placement = 'product_detail'
 
   user_event = {
     'event_type': 'detail-page-view',
@@ -50,11 +55,10 @@ def recommend(request):
     }]
   }
 
-  # Set as necessary for your requirements & placement id:
   predict_request = {
     "placement":
       'projects/' + PROJECT_NUMBER +
-      '/locations/global/catalogs/default_catalog/placements/product_detail',
+      '/locations/global/catalogs/default_catalog/placements/' + placement,
 
     "user_event": user_event,
 
@@ -77,11 +81,12 @@ def recommend(request):
     product = rec.metadata.get('product')
     images = product.get('images')
 
+    # Customize as needed:
     item = {
       "id": rec.id,
       "title": product.get('title'),
       "uri": product.get('uri'),
-      "img": images[0]['uri']
+      "img": images[1]['uri']
     }
 
     items.append(item)
@@ -91,7 +96,8 @@ def recommend(request):
     result = '<div>'
 
     for item in items:
-      result =(result + '<img src="' + item['uri'] + '">')
+      result = result + '<a href="' + item['uri'] + '">' +
+        '<img src="' + item['img'] + '"></a>'
 
     result = result + '</div>'
 
