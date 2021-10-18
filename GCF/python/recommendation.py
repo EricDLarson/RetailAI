@@ -96,8 +96,8 @@ def recommend(request):
     result = '<div>'
 
     for item in items:
-      result = result + '<a href="' + item['uri'] + '">' +
-        '<img src="' + item['img'] + '"></a>'
+      result = (result + '<a href="' + item['uri'] + '">' +
+        '<img src="' + item['img'] + '"></a>')
 
     result = result + '</div>'
 
