@@ -1,12 +1,12 @@
-## Recommendations AI
+## Retail AI
 
-Samples and Examples for Google Recommendations AI (Now the Retail API)
+Samples and Examples for Google Retail AI (Recommendations AI and Retail Search)
 
 #### All samples provided as-is without warranty
 
 Please refer to the official documentation for more examples and up-to-date API specifics:
 
-* [Google Recommendations AI Retail API Documentation](https://cloud.google.com/retail/recommendations-ai/docs)
+* [Google Retail Documentation](https://cloud.google.com/retail/docs)
 * [Google Retail API Reference](https://cloud.google.com/retail/docs/reference/rest)
 
 ***
