@@ -22,7 +22,7 @@ credentials, project = google.auth.default(
 )
 
 # For local testing you may want to do something like this if
-# your default credentials done have Retail/Recommendations Viewer Role
+# your default credentials don't have Retail/Recommendations Viewer Role
 #SERVICE_ACCOUNT_FILE = '<path to local SA key file>'
 #credentials = service_account.Credentials.from_service_account_file(
 #  SERVICE_ACCOUNT_FILE, scopes=['https://www.googleapis.com/auth/cloud-platform'])
